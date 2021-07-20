@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20200423 AS add-apt-repositories
+FROM ubuntu:focal AS add-apt-repositories
 
 RUN cat /etc/resolv.conf
 
@@ -12,7 +12,7 @@ RUN curl -sSL http://www.webmin.com/jcameron-key.asc | apt-key add -
 
 RUN echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
 
-FROM ubuntu:focal-20200423
+FROM ubuntu:focal
 
 LABEL maintainer="sameer@damagehead.com"
 
