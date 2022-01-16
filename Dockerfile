@@ -18,7 +18,7 @@ LABEL maintainer="sameer@damagehead.com"
 
 ENV BIND_USER=bind \
     BIND_VERSION=9.16.1 \
-    WEBMIN_VERSION=1.981 \
+    WEBMIN_VERSION=1.984 \
     DATA_DIR=/data
 
 COPY --from=add-apt-repositories /etc/apt/trusted.gpg /etc/apt/trusted.gpg
@@ -29,8 +29,13 @@ RUN rm -rf /etc/apt/apt.conf.d/docker-gzip-indexes \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
       bind9=1:${BIND_VERSION}* bind9-host=1:${BIND_VERSION}* dnsutils \
-      webmin=${WEBMIN_VERSION}* curl \
- && rm -rf /var/lib/apt/lists/*
+      webmin=${WEBMIN_VERSION}* curl
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mdadm
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y smartmontools
+
+RUN  rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 
