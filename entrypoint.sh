@@ -128,7 +128,8 @@ if [[ -z ${1} ]]; then
     first_init
     set_root_passwd
     echo "Starting webmin..."
-    /etc/init.d/webmin start
+    #/etc/init.d/webmin start
+    /etc/webmin/start
   fi
 
   echo "Starting named..."
