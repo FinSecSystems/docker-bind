@@ -17,8 +17,8 @@ FROM ubuntu:focal
 LABEL maintainer="sameer@damagehead.com"
 
 ENV BIND_USER=bind \
-    BIND_VERSION=9.16.48 \
-    WEBMIN_VERSION=2.111 \
+    BIND_VERSION=9.16.1 \
+    WEBMIN_VERSION=2.303 \
     DATA_DIR=/data
 
 COPY --from=add-apt-repositories /etc/apt/trusted.gpg /etc/apt/trusted.gpg
@@ -28,7 +28,7 @@ COPY --from=add-apt-repositories /etc/apt/sources.list /etc/apt/sources.list
 RUN rm -rf /etc/apt/apt.conf.d/docker-gzip-indexes \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      bind9=1:${BIND_VERSION}* bind9-host=1:${BIND_VERSION}* dnsutils \
+      bind9-dnsutils=1:${BIND_VERSION}* bind9-libs=1:${BIND_VERSION}* bind9-utils=1:${BIND_VERSION}* bind9=1:${BIND_VERSION}* bind9-host=1:${BIND_VERSION}* dnsutils \
       webmin=${WEBMIN_VERSION}* curl vim wget
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mdadm
